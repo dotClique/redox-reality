@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using OpenAI;
 using OpenAI.Managers;
@@ -14,18 +15,25 @@ public class ChatGPTTest : MonoBehaviour
         Debug.Log("Init OpenAI");
         var openAiService = new OpenAIService(new OpenAiOptions()
         {
-            // ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")!,
-            // Organization = Environment.GetEnvironmentVariable("MY_OPEN_ORGANIZATION_ID") //optional
+            ApiKey = Secrets.OPENAI_API_KEY
         });
-        Debug.Log("Request completion");
-        var completionResult = await openAiService.Completions.CreateCompletion(new CompletionCreateRequest()
+        // TODO: get liquid request from Voice SDK speech-to-text
+        const string liquid = "vinegar";
+        var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
-            Prompt = "What is the pH value of vinegar?",
-            Model = Models.TextDavinciV3
+            Messages = new List<ChatMessage>
+            {
+                ChatMessage.FromSystem("You are a helpful assistant. You only answer with single float numbers," +
+                                       " no extra explanations. The number must the parsable, so no characters other" +
+                                       " than digits and decimal separator. If you want to answer with a range," +
+                                       " give the average value of the range"),
+                ChatMessage.FromUser($"What is the pH value of {liquid}?"),
+            },
+            Model = Models.Gpt_3_5_Turbo
         });
         if (completionResult.Successful)
         {
-            Debug.Log(completionResult.Choices.First().Text);
+            Debug.Log(completionResult.Choices.First().Message.Content);
         }
         else
         {
@@ -41,6 +49,5 @@ public class ChatGPTTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
