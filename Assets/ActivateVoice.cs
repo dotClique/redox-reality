@@ -8,6 +8,7 @@ public class ActivateVoice : MonoBehaviour
 {
 
     [SerializeField] private Wit wit;
+    [SerializeField] public MicrophoneActivator microphoneActivator;
 
     // Update is called once per frame
     void Update()
