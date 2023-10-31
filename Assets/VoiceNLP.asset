@@ -222,7 +222,7 @@ MonoBehaviour:
       - fast
       - projected
   _configData: []
-  _configurationId: b845c1a8-545d-4167-9fdf-45d047b93d71
+  _configurationId: 8eb0671b-0921-4ce7-a745-7765d43fb630
   timeoutMS: 10000
   endpointConfiguration:
     _uriScheme: 
@@ -237,7 +237,7 @@ MonoBehaviour:
     _converse: 
   isDemoOnly: 0
   useConduit: 1
-  _manifestLocalPath: ConduitManifest-dfed34f3-ea52-4f80-9fc7-f18e58a325b4.json
+  _manifestLocalPath: ConduitManifest-4746c0b7-e84a-46d2-a8bb-0c612842fcde.json
   excludedAssemblies:
   - Oculus.Voice.Demo, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Meta.WitAi.Samples, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
