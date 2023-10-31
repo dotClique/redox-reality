@@ -3,12 +3,35 @@ using System.Collections.Generic;
 using Meta.WitAi;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ActivateVoice : MonoBehaviour
 {
-
     [SerializeField] private Wit wit;
+    [SerializeField] public XRGrabInteractable microphoneInteractable;
     [SerializeField] public MicrophoneActivator microphoneActivator;
+
+    private bool _listening;
+
+    public bool Listening
+    {
+        get => _listening;
+        set
+        {
+            if (_listening == value) return;
+            microphoneActivator.MicrophoneActivated = value;
+            if (value)
+            {
+                wit.Activate();
+            }
+            else
+            {
+                wit.Deactivate();
+            }
+
+            _listening = value;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -16,18 +39,18 @@ public class ActivateVoice : MonoBehaviour
         if (wit == null) wit = GetComponent<Wit>();
     }
 
-    public void TriggerPressed(InputAction.CallbackContext context)
+    public void OnActivate(InputValue inputValue)
     {
         Debug.Log("TriggerPressed");
-        if (context.performed)
+        if (inputValue.isPressed && microphoneInteractable.isSelected)
         {
-            WitActivate();
+            Listening = true;
         }
+        else Listening = false;
     }
 
-    public void WitActivate()
+    public void OnListenTimeout()
     {
-        wit.Activate();
+        Listening = false;
     }
-    
 }

@@ -1,0 +1,73 @@
+{
+    "name": "XRControls",
+    "maps": [
+        {
+            "name": "VoiceActivation",
+            "id": "618296ad-8a70-40c5-9159-707b036d89d9",
+            "actions": [
+                {
+                    "name": "Activate",
+                    "type": "Button",
+                    "id": "93493e96-5029-413e-ad46-f079848712fc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "896cd4b5-a5d3-49c6-afc6-6f2990364fb5",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dad05961-6759-4ddd-8bc8-621f059e1276",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "DebugLogToggle",
+            "id": "c180e3c3-14bf-4328-94b9-1fda3af3b1a3",
+            "actions": [
+                {
+                    "name": "Toggle",
+                    "type": "Button",
+                    "id": "6ec2a494-9e23-4d01-96e0-213378c54602",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "63137534-9f82-4e44-90b7-4c5f5448e9ce",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
