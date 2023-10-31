@@ -15,6 +15,8 @@ public class LabAI : MonoBehaviour
 {
     private OpenAIService _openAIService;
 
+    [SerializeField] private Text queryText;
+
     [SerializeField] private Text phText;
 
     [SerializeField] private Text colorText;
@@ -123,6 +125,7 @@ public class LabAI : MonoBehaviour
     public async void RequestResponse(string query)
     {
         Debug.Log($"Requesting response from LabAI with query: {query}");
+        queryText.text = query;
         phText.text = "...";
         colorText.text = "...";
         colorText.color = Color.white;
