@@ -8446,6 +8446,7 @@ GameObject:
   - component: {fileID: 1342527295}
   - component: {fileID: 1342527294}
   - component: {fileID: 1342527296}
+  - component: {fileID: 1342527297}
   m_Layer: 0
   m_Name: App Voice Experience
   m_TagString: Untagged
@@ -8524,26 +8525,14 @@ MonoBehaviour:
         m_Calls: []
     _onStartListening:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 936652885}
-          m_TargetAssemblyTypeName: MicrophoneActivator, Assembly-CSharp
-          m_MethodName: set_MicrophoneActivated
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
     _onStoppedListening:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 936652885}
-          m_TargetAssemblyTypeName: MicrophoneActivator, Assembly-CSharp
-          m_MethodName: set_MicrophoneActivated
-          m_Mode: 6
+        - m_Target: {fileID: 1342527296}
+          m_TargetAssemblyTypeName: ActivateVoice, Assembly-CSharp
+          m_MethodName: OnListenTimeout
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8551,7 +8540,7 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
-          m_CallState: 2
+          m_CallState: 1
     _onMicLevelChanged:
       m_PersistentCalls:
         m_Calls: []
@@ -8584,9 +8573,9 @@ MonoBehaviour:
         m_Calls: []
   witRuntimeConfiguration:
     witConfiguration: {fileID: 11400000, guid: 76436e79f3c64214db8fb8207f9c9760, type: 2}
-    minKeepAliveVolume: 0.0005
-    minKeepAliveTimeInSeconds: 2
-    minTranscriptionKeepAliveTimeInSeconds: 1
+    minKeepAliveVolume: 0
+    minKeepAliveTimeInSeconds: 10
+    minTranscriptionKeepAliveTimeInSeconds: 10
     maxRecordingTime: 20
     soundWakeThreshold: 0.0005
     sampleLengthInMs: 10
@@ -8627,6 +8616,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wit: {fileID: 0}
   microphoneActivator: {fileID: 936652885}
+--- !u!114 &1342527297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342527293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 4172b592d43dee442bf7fce870aad1eb,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1342527296}
+        m_TargetAssemblyTypeName: ActivateVoice, Assembly-CSharp
+        m_MethodName: set_VoiceActivated
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+    m_ActionId: 93493e96-5029-413e-ad46-f079848712fc
+    m_ActionName: VoiceActivation/Activate
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ec2a494-9e23-4d01-96e0-213378c54602
+    m_ActionName: DebugLogToggle/Toggle
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: VoiceActivation
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 1731298971}
 --- !u!1 &1374009838
 GameObject:
   m_ObjectHideFlags: 0

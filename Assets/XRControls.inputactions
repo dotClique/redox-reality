@@ -12,15 +12,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "896cd4b5-a5d3-49c6-afc6-6f2990364fb5",
-                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
-                    "interactions": "",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Activate",
@@ -31,7 +31,7 @@
                     "name": "",
                     "id": "dad05961-6759-4ddd-8bc8-621f059e1276",
                     "path": "<XRController>{RightHand}/triggerPressed",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Activate",
