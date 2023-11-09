@@ -19,7 +19,7 @@ public class LabAI : MonoBehaviour
 
     [SerializeField] private Text colorText;
 
-    [SerializeField] private Text viscosityText;
+    // [SerializeField] private Text viscosityText;
 
     [SerializeField] private GameObject liquidBeakerToSpawn;
 
@@ -133,7 +133,7 @@ public class LabAI : MonoBehaviour
         phText.text = "...";
         colorText.text = "...";
         colorText.color = Color.white;
-        viscosityText.text = "...";
+        // viscosityText.text = "...";
 
         var result = await Task.WhenAll(
             RequestPH(query),
@@ -141,12 +141,12 @@ public class LabAI : MonoBehaviour
             // RequestViscosity(query)
         );
         
-        phText.text = result[0] ?? "[ERROR]";
+        phText.text = $"pH: {result[0] ?? "[ERROR]"}";
 
         Color color;
         ColorUtility.TryParseHtmlString(result[1], out color);
         // color = color ?? Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        colorText.text = $"#{ColorUtility.ToHtmlStringRGB(color)}";
+        colorText.text = $"color: #{ColorUtility.ToHtmlStringRGB(color)}";
         colorText.color = color;
         
         // viscosityText.text = result[2] ?? "[ERROR]";
@@ -160,6 +160,7 @@ public class LabAI : MonoBehaviour
         var spawnedLiquid = spawnedBeaker.GetComponentInChildren<Liquid>();
         Debug.Log($"Parsed spawned liquid ph as {float.Parse(result[0])}");
         spawnedLiquid.pH = float.Parse(result[0]);
+        spawnedLiquid.SetColor(color);
         spawnedBeakers = new List<GameObject> { spawnedBeaker };
     }
     

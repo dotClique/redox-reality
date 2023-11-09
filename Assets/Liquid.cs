@@ -1,12 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Liquid : MonoBehaviour
 {
 
     public float pH;
-    
+
+    private Renderer _renderer;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,4 +24,10 @@ public class Liquid : MonoBehaviour
     {
         
     }
+
+    public void SetColor(Color color)
+    {
+        _renderer.material.SetColor("_Color", color);
+    }
+    
 }

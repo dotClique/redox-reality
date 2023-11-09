@@ -3018,7 +3018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &864297497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4906,7 +4906,6 @@ MonoBehaviour:
   queryText: {fileID: 781775146}
   phText: {fileID: 628174850}
   colorText: {fileID: 1178078472}
-  viscosityText: {fileID: 1525870950}
   liquidBeakerToSpawn: {fileID: 9009510195831712475, guid: 536c1cde60402fd41a5f3f2b89d969a8,
     type: 3}
   liquidBeakerSpawnPoint: {fileID: 738865170}
