@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using OpenAI;
 using OpenAI.Managers;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +20,10 @@ public class LabAI : MonoBehaviour
     [SerializeField] private Text colorText;
 
     [SerializeField] private Text viscosityText;
+
+    [SerializeField] private GameObject liquidBeakerToSpawn;
+
+    [SerializeField] private GameObject liquidBeakerSpawnPoint;
     
     // Start is called before the first frame update
     void Start()
@@ -132,20 +134,22 @@ public class LabAI : MonoBehaviour
         viscosityText.text = "...";
 
         var result = await Task.WhenAll(
-            RequestPH(query)
-            // RequestColor(query), 
+            RequestPH(query),
+            RequestColor(query)
             // RequestViscosity(query)
         );
         
         phText.text = result[0] ?? "[ERROR]";
 
-        // Color color;
-        // ColorUtility.TryParseHtmlString(result[1], out color);
-        // // color = color ?? Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        // colorText.text = $"#{ColorUtility.ToHtmlStringRGB(color)}";
-        // colorText.color = color;
-        //
+        Color color;
+        ColorUtility.TryParseHtmlString(result[1], out color);
+        // color = color ?? Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+        colorText.text = $"#{ColorUtility.ToHtmlStringRGB(color)}";
+        colorText.color = color;
+        
         // viscosityText.text = result[2] ?? "[ERROR]";
+
+        Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
     }
     
 }
