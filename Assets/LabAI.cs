@@ -155,7 +155,12 @@ public class LabAI : MonoBehaviour
         {
             Destroy(beaker);
         }
-        spawnedBeakers = new List<GameObject> { Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform) };
+
+        var spawnedBeaker = Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
+        var spawnedLiquid = spawnedBeaker.GetComponentInChildren<Liquid>();
+        Debug.Log($"Parsed spawned liquid ph as {float.Parse(result[0])}");
+        spawnedLiquid.pH = float.Parse(result[0]);
+        spawnedBeakers = new List<GameObject> { spawnedBeaker };
     }
     
 }
