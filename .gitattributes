@@ -51,6 +51,7 @@
 *.meta linguist-generated
 *.prefab linguist-generated
 *.unity linguist-generated
+*.raw,*.png filter=lfs diff=lfs merge=lfs -text
 *.gitignore filter=lfs diff=lfs merge=lfs -text
 *.meta filter=lfs diff=lfs merge=lfs -text
 *.mat filter=lfs diff=lfs merge=lfs -text
@@ -89,3 +90,4 @@
 *.zip filter=lfs diff=lfs merge=lfs -text
 *.lighting filter=lfs diff=lfs merge=lfs -text
 *.cginc filter=lfs diff=lfs merge=lfs -text
+*.lfsconfig filter=lfs diff=lfs merge=lfs -text
