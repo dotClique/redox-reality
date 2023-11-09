@@ -24,6 +24,8 @@ public class LabAI : MonoBehaviour
     [SerializeField] private GameObject liquidBeakerToSpawn;
 
     [SerializeField] private GameObject liquidBeakerSpawnPoint;
+
+    private List<GameObject> spawnedBeakers = new();
     
     // Start is called before the first frame update
     void Start()
@@ -149,7 +151,11 @@ public class LabAI : MonoBehaviour
         
         // viscosityText.text = result[2] ?? "[ERROR]";
 
-        Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
+        foreach (var beaker in spawnedBeakers)
+        {
+            Destroy(beaker);
+        }
+        spawnedBeakers = new List<GameObject> { Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform) };
     }
     
 }
