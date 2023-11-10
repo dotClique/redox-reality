@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenAI;
@@ -21,20 +22,25 @@ public class LabAI : MonoBehaviour
 
     // [SerializeField] private Text viscosityText;
 
+    [SerializeField] private Text answerText;
+
+    [SerializeField] private Text correctAnswerText;
+
     [SerializeField] private GameObject liquidBeakerToSpawn;
 
     [SerializeField] private GameObject liquidBeakerSpawnPoint;
 
-    private List<GameObject> spawnedBeakers = new();
+    private GameObject spawnedBeaker;
     
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
         Debug.Log("Init OpenAI");
         _openAIService = new OpenAIService(new OpenAiOptions()
         {
             ApiKey = Secrets.OPENAI_API_KEY
         });
+        Debug.Log($"OpenAIService ListModel {await _openAIService.Models.ListModel()}");
     }
 
     private async Task<string> RequestPH(string liquid)
@@ -122,13 +128,42 @@ public class LabAI : MonoBehaviour
         {
             throw new Exception("Unknown Error");
         }
-        Debug.Log($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+        Debug.LogError($"{completionResult.Error.Code}: {completionResult.Error.Message}");
         return null;
     }
 
-    public async void RequestResponse(string query)
+    private async Task<float?> ParseAnswerToFloat(string answer)
     {
-        Debug.Log($"Requesting response from LabAI with query: {query}");
+        var completionResult = await _openAIService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+        {
+            Messages = new List<ChatMessage>
+            {
+                // TODO: prompt engineer
+                ChatMessage.FromSystem("You are a helpful assistant. You only answer with single float numbers," +
+                                       " no extra explanations. The number must the parsable, so no characters other" +
+                                       " than digits and decimal separator. If you want to answer with a range," +
+                                       " give the average value of the range. If you can't find the answer, make" +
+                                       " up a number. There is no excuse to not provide a number." +
+                                       " The number is dimensionless with no units. Extract the float number from the speech transcript. Provide only the numeric value without any additional text. If the transcript includes words like 'Five. Three,' I want the response to be '5.3.'"),
+                ChatMessage.FromUser($"Give me the intended float number from the following transcript '{answer}'"),
+            },
+            Model = Models.Gpt_3_5_Turbo
+        });
+        if (completionResult.Successful)
+        {
+            return float.TryParse(completionResult.Choices.First().Message.Content, out var res) ? res : null;
+        }
+        if (completionResult.Error == null)
+        {
+            throw new Exception("Unknown Error");
+        }
+        Debug.LogError($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+        return null;
+    }
+
+    public async void OrderLiquid(string query)
+    {
+        Debug.Log($"Requesting liquid response from LabAI with query: {query}");
         queryText.text = query;
         phText.text = "...";
         colorText.text = "...";
@@ -150,18 +185,42 @@ public class LabAI : MonoBehaviour
         colorText.color = color;
         
         // viscosityText.text = result[2] ?? "[ERROR]";
-
-        foreach (var beaker in spawnedBeakers)
+        
+        if (!float.TryParse(result[0], out var pH))
         {
-            Destroy(beaker);
+            Debug.LogError($"Failed to parse liquid pH, string was {result[0]}");
+            return;
         }
-
-        var spawnedBeaker = Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
-        var spawnedLiquid = spawnedBeaker.GetComponentInChildren<Liquid>();
-        Debug.Log($"Parsed spawned liquid ph as {float.Parse(result[0])}");
-        spawnedLiquid.pH = float.Parse(result[0]);
+        Debug.Log($"Parsed spawned liquid ph as {pH}");
+        
+        Destroy(spawnedBeaker);
+        var newSpawnedBeaker = Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
+        var spawnedLiquid = newSpawnedBeaker.GetComponentInChildren<Liquid>();
+        spawnedLiquid.pH = pH;
         spawnedLiquid.SetColor(color);
-        spawnedBeakers = new List<GameObject> { spawnedBeaker };
+        spawnedBeaker = newSpawnedBeaker;
+
+        GameManager.Instance.State = GameManager.GameState.SUBMIT_ANSWER;
+    }
+
+    public async void ProcessAnswer(string answer)
+    {
+        Debug.Log($"Processing answer {answer}");
+        var floatAnswer = await ParseAnswerToFloat(answer);
+
+        if (floatAnswer == null)
+        {
+            answerText.text = "[ERROR]";
+            return;
+        }
+        
+        Debug.Log($"Parsed answer as float {floatAnswer}");
+
+        answerText.text = floatAnswer.ToString();
+        var spawnedLiquid = spawnedBeaker.GetComponentInChildren<Liquid>();
+        correctAnswerText.text = spawnedLiquid.pH.ToString();
+
+        GameManager.Instance.State = GameManager.GameState.ORDER_LIQUID;
     }
     
 }
