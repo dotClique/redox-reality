@@ -4,28 +4,26 @@ using UnityEngine;
 public class TestPaper : MonoBehaviour
 {
     private Renderer _renderer;
+    
+    private static readonly Color32[] PhBaseColors = {
+        new(238, 55, 34, 255), // 1
+        new(238, 52, 121, 255), // 2
+        new(245, 126, 38, 255), // 3
+        new(251, 169, 35, 255), // 4
+        new(244, 236, 8, 255), // 5
+        new(163, 205, 57, 255), // 6
+        new(77, 184, 71, 255), // 7
+        new(1, 146, 71, 255), // 8
+        new(5, 148, 149, 255), // 9
+        new(81, 117, 186, 255), // 10
+        new(69, 74, 159, 255), // 11
+        new(42, 47, 132, 255), // 12
+        new(148, 36, 140, 255), // 13
+        new(123, 39, 121, 255), // 14
+    };
 
     private static Color pHToColor(float pH)
     {
-        // Define your base colors for pH values 1 to 14
-        var baseColors = new Color32[]
-        {
-            new(238, 55, 34, 255), // 1
-            new(238, 52, 121, 255), // 2
-            new(245, 126, 38, 255), // 3
-            new(251, 169, 35, 255), // 4
-            new(244, 236, 8, 255), // 5
-            new(163, 205, 57, 255), // 6
-            new(77, 184, 71, 255), // 7
-            new(1, 146, 71, 255), // 8
-            new(5, 148, 149, 255), // 9
-            new(81, 117, 186, 255), // 10
-            new(69, 74, 159, 255), // 11
-            new(42, 47, 132, 255), // 12
-            new(148, 36, 140, 255), // 13
-            new(123, 39, 121, 255), // 14
-        };
-
         var lowerIndex = (int)Math.Floor(pH);
         var upperIndex = (int)Math.Ceiling(pH);
 
@@ -35,8 +33,8 @@ public class TestPaper : MonoBehaviour
 
         // Interpolate between the two nearest base colors
         var t = pH - lowerIndex;
-        var lowerColor = baseColors[lowerIndex - 1];
-        var upperColor = baseColors[upperIndex - 1];
+        var lowerColor = PhBaseColors[lowerIndex - 1];
+        var upperColor = PhBaseColors[upperIndex - 1];
 
         var r = (byte)(lowerColor.r + t * (upperColor.r - lowerColor.r));
         var g = (byte)(lowerColor.g + t * (upperColor.g - lowerColor.g));
