@@ -1,5 +1,8 @@
 using System;
+using Unity.Tutorials.Core.Editor;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameState State;
 
     public LabAI LabAI;
+
+    public GameObject primaryPanel;
+    public GameObject secondaryPanel;
     
     private void Awake() 
     { 
@@ -27,7 +33,12 @@ public class GameManager : MonoBehaviour
         else 
         { 
             Instance = this; 
-        } 
+        }
+
+        primaryPanel.GetComponentInChildren<Text>().text = "Order liquid using the microphone";
+        secondaryPanel.GetComponentInChildren<Text>().text = "use 'Hand Trigger' to grab and 'Index Trigger' to speak";
+        secondaryPanel.SetActive(true);
+
     }
 
     public async void OnFullVoiceTranscription(string query)
@@ -37,15 +48,29 @@ public class GameManager : MonoBehaviour
         switch (State)
         {
             case GameState.ORDER_LIQUID:
-                LabAI.OrderLiquid(query);
+                primaryPanel.GetComponentInChildren<Text>().text = "Processing ...";
+                secondaryPanel.SetActive(false);
+                secondaryPanel.GetComponentInChildren<Text>().text = "";
+                await LabAI.OrderLiquid(query);
                 break;
             case GameState.SUBMIT_ANSWER:
-                LabAI.ProcessAnswer(query);
+                await LabAI.ProcessAnswer(query);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
         
+    }
+
+    public void SetPrimaryPanelText(string text)
+    {
+        primaryPanel.GetComponentInChildren<Text>().text = text;
+    }
+
+    public void SetSecondaryPanelText(string text)
+    {
+        secondaryPanel.SetActive(!text.IsNullOrEmpty());
+        secondaryPanel.GetComponentInChildren<Text>().text = text;
     }
 
 }

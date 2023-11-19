@@ -8,23 +8,22 @@ using OpenAI.Managers;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LabAI : MonoBehaviour
 {
     private OpenAIService _openAIService;
 
-    [SerializeField] private Text queryText;
+    // [SerializeField] private Text queryText;
 
-    [SerializeField] private Text phText;
+    // [SerializeField] private Text phText;
 
-    [SerializeField] private Text colorText;
+    // [SerializeField] private Text colorText;
 
     // [SerializeField] private Text viscosityText;
 
-    [SerializeField] private Text answerText;
-
-    [SerializeField] private Text correctAnswerText;
+    // [SerializeField] private Text answerText;
+    //
+    // [SerializeField] private Text correctAnswerText;
 
     [SerializeField] private GameObject liquidBeakerToSpawn;
 
@@ -85,11 +84,12 @@ public class LabAI : MonoBehaviour
             Messages = new List<ChatMessage>
             {
                 // TODO: prompt engineer
-                ChatMessage.FromSystem("You are a helpful assistant. You only answer with a single hex code," +
+                ChatMessage.FromSystem("You are a helpful assistant. You only answer with a single hex with alpha," +
                                        " no extra explanations. If there are multiple possible answer, pick the most " +
                                        "correct one. Otherwise pick at random. The string must start with a number " +
                                        "sign '#' and be parsable, so no characters other than hex digits. The format" +
-                                       " should be #000000."),
+                                       " should be #RRGGBBAA, e.g. #FF4DB847. Remember that the alpha channel, the last" +
+                                       " two digits, should match how transparent the liquid is"),
                 ChatMessage.FromUser($"What is the color of {liquid}?"),
             },
             Model = Models.Gpt_3_5_Turbo
@@ -165,14 +165,12 @@ public class LabAI : MonoBehaviour
         return null;
     }
 
-    public async void OrderLiquid(string query)
+    public async Task OrderLiquid(string query)
     {
         Debug.Log($"Requesting liquid response from LabAI with query: {query}");
-        // queryText.text = query;
-        // phText.text = "...";
-        // colorText.text = "...";
-        // colorText.color = Color.white;
-        // viscosityText.text = "...";
+
+        GameManager.Instance.SetPrimaryPanelText(query);
+        GameManager.Instance.SetSecondaryPanelText("analyzing...");
 
         var result = await Task.WhenAll(
             RequestPH(query),
@@ -180,16 +178,16 @@ public class LabAI : MonoBehaviour
             // RequestViscosity(query)
         );
         
+        GameManager.Instance.SetSecondaryPanelText("");
+        
         Debug.Log($"Result: {result[0]},{result[1]}");
         
-        // phText.text = $"pH: {result[0] ?? "[ERROR]"}";
-
         Color color;
         ColorUtility.TryParseHtmlString(result[1], out color);
-        // color = color ?? Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        // colorText.text = $"color: #{ColorUtility.ToHtmlStringRGB(color)}";
-        // colorText.color = color;
         
+        // Make sure it's not too transparent (even if ChatGPT says so...)
+        color.a = Math.Min(color.a, 0.5f);
+
         // viscosityText.text = result[2] ?? "[ERROR]";
         
         if (!float.TryParse(result[0], out var pH))
@@ -211,23 +209,23 @@ public class LabAI : MonoBehaviour
         GameManager.Instance.State = GameManager.GameState.SUBMIT_ANSWER;
     }
 
-    public async void ProcessAnswer(string answer)
+    public async Task ProcessAnswer(string answer)
     {
         Debug.Log($"Processing answer {answer}");
         var floatAnswer = await ParseAnswerToFloat(answer);
 
         if (floatAnswer == null)
         {
-            answerText.text = "[ERROR]";
+            GameManager.Instance.SetPrimaryPanelText("[ERROR]");
             return;
         }
         
         Debug.Log($"Parsed answer as float {floatAnswer}");
 
-        answerText.text = floatAnswer.ToString();
         var spawnedLiquid = spawnedBeaker.GetComponentInChildren<Liquid>();
-        correctAnswerText.text = spawnedLiquid.pH.ToString();
-
+        GameManager.Instance.SetPrimaryPanelText($"You: {floatAnswer}\nAnswer: {spawnedLiquid.pH}");
+        GameManager.Instance.SetSecondaryPanelText("Order a new liquid to try again");
+        
         GameManager.Instance.State = GameManager.GameState.ORDER_LIQUID;
     }
     

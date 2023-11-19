@@ -1,5 +1,6 @@
-#if (UNITY_EDITOR) 
+#if (UNITY_EDITOR)
 
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class LabAIInspector : Editor
         
     }
 
-    public override void OnInspectorGUI()
+    public override async void OnInspectorGUI()
     {
         base.OnInspectorGUI();
         
@@ -38,7 +39,7 @@ public class LabAIInspector : Editor
         _requestMessage = GUILayout.TextField(_requestMessage);
         if (GUILayout.Button("Request", GUILayout.Width(80)))
         {
-            ((LabAI)target).OrderLiquid(_requestMessage);
+            await ((LabAI)target).OrderLiquid(_requestMessage);
         }
         GUILayout.EndHorizontal();
         
