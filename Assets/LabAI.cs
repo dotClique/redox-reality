@@ -77,7 +77,8 @@ public class LabAI : MonoBehaviour
                                        "correct one. Otherwise pick at random. The string must start with a number " +
                                        "sign '#' and be parsable, so no characters other than hex digits. The format" +
                                        " should be #RRGGBBAA, e.g. #FF4DB847. Remember that the alpha channel, the last" +
-                                       " two digits, should match how transparent the liquid is"),
+                                       " two digits, should match how opaque the liquid is. For example, FF is completely" +
+                                       "opaque, and 00 is completely transparent."),
                 ChatMessage.FromUser($"What is the color of {liquid}?"),
             },
             Model = Models.Gpt_3_5_Turbo
@@ -91,36 +92,6 @@ public class LabAI : MonoBehaviour
             throw new Exception("Unknown Error");
         }
         Debug.Log($"{completionResult.Error.Code}: {completionResult.Error.Message}");
-        return null;
-    }
-    
-    private async Task<string> RequestViscosity(string liquid)
-    {
-        var completionResult = await _openAIService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
-        {
-            Messages = new List<ChatMessage>
-            {
-                // TODO: prompt engineer
-                ChatMessage.FromSystem("You are a helpful assistant. You only answer with single float numbers," +
-                                       " no extra explanations. The number must the parsable, so no characters other" +
-                                       " than digits and decimal separator. If you want to answer with a range," +
-                                       " give the average value of the range. If you can't find the answer, make" +
-                                       " up a number. There is no excuse to not provide a number." +
-                                       " The unit should be pascal-seconds, but don't include the unit symbol in" +
-                                       " the answer."),
-                ChatMessage.FromUser($"What is the viscosity of {liquid}?"),
-            },
-            Model = Models.Gpt_3_5_Turbo
-        });
-        if (completionResult.Successful)
-        {
-            return completionResult.Choices.First().Message.Content;
-        }
-        if (completionResult.Error == null)
-        {
-            throw new Exception("Unknown Error");
-        }
-        Debug.LogError($"{completionResult.Error.Code}: {completionResult.Error.Message}");
         return null;
     }
 
@@ -163,7 +134,6 @@ public class LabAI : MonoBehaviour
         var result = await Task.WhenAll(
             RequestPH(query),
             RequestColor(query)
-            // RequestViscosity(query)
         );
         
 
@@ -175,7 +145,7 @@ public class LabAI : MonoBehaviour
         ColorUtility.TryParseHtmlString(result[1], out color);
         
         // Make sure it's not too transparent (even if ChatGPT says so...)
-        color.a = Math.Min(color.a, 0.5f);
+        color.a = Math.Max(color.a, 0.15f);
 
         // viscosityText.text = result[2] ?? "[ERROR]";
         
