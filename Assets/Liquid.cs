@@ -7,8 +7,10 @@ public class Liquid : MonoBehaviour
     public float pH;
 
     private Renderer _renderer;
+    private static readonly int BaseColor = Shader.PropertyToID("_Color");
+    private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
-    private void Awake()
+    private void OnEnable()
     {
         _renderer = GetComponent<Renderer>();
     }
@@ -27,7 +29,8 @@ public class Liquid : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        _renderer.material.SetColor("_Color", color);
+        _renderer.material.SetColor(BaseColor, color);
+        _renderer.material.SetColor(EmissionColor, color);
     }
     
 }

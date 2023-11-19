@@ -55,12 +55,12 @@ public class TestPaper : MonoBehaviour
     {
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"OnTriggerEnter: {other.gameObject.tag}");
-        if (other.gameObject.CompareTag("Liquid"))
+        Debug.Log($"OnTriggerEnter: {collision.gameObject.gameObject.tag}");
+        if (collision.gameObject.CompareTag("Liquid"))
         {
-            var liquid = other.gameObject.GetComponent<Liquid>();
+            var liquid = collision.gameObject.GetComponent<Liquid>();
             Debug.Log($"Liquid has ph {liquid.pH}");
             Debug.Log($"That would be the color {pHToColor(liquid.pH)}");
             _renderer.material.SetColor("_Color", pHToColor(liquid.pH));

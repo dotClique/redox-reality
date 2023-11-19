@@ -35,6 +35,9 @@ public class LabAI : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+        CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
         Debug.Log("Init OpenAI");
         _openAIService = new OpenAIService(new OpenAiOptions()
         {
@@ -191,16 +194,18 @@ public class LabAI : MonoBehaviour
         
         if (!float.TryParse(result[0], out var pH))
         {
-            Debug.LogError($"Failed to parse liquid pH, string was {result[0]}");
+            Debug.LogError($"Failed to parse liquid pH, string was '{result[0]}'");
             return;
         }
         Debug.Log($"Parsed spawned liquid ph as {pH}");
         
         Destroy(spawnedBeaker);
         var newSpawnedBeaker = Instantiate(liquidBeakerToSpawn, liquidBeakerSpawnPoint.transform);
-        var spawnedLiquid = newSpawnedBeaker.GetComponentInChildren<Liquid>();
-        spawnedLiquid.pH = pH;
-        spawnedLiquid.SetColor(color);
+        var spawnedLiquids = newSpawnedBeaker.GetComponentsInChildren<Liquid>();
+        foreach (var spawnedLiquid in spawnedLiquids) {
+            spawnedLiquid.pH = pH;
+            spawnedLiquid.SetColor(color);
+        }
         spawnedBeaker = newSpawnedBeaker;
 
         GameManager.Instance.State = GameManager.GameState.SUBMIT_ANSWER;
