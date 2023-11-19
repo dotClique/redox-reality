@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Primitives;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +8,7 @@ public class DebugLogCanvas : MonoBehaviour
     [SerializeField] int maxLines = 50;
     [SerializeField] TextMeshProUGUI debugLogText;
 
-    Queue<string> queue = new Queue<string>();
+    Queue<string> queue = new();
 
     private Canvas _canvas;
 

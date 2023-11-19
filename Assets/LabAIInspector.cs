@@ -22,7 +22,7 @@ public class LabAIInspector : Editor
         
     }
 
-    public override async void OnInspectorGUI()
+    public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
         
@@ -39,7 +39,7 @@ public class LabAIInspector : Editor
         _requestMessage = GUILayout.TextField(_requestMessage);
         if (GUILayout.Button("Request", GUILayout.Width(80)))
         {
-            await ((LabAI)target).OrderLiquid(_requestMessage);
+            ((LabAI)target).OrderLiquid(_requestMessage);
         }
         GUILayout.EndHorizontal();
         
