@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         primaryPanel.GetComponentInChildren<Text>().text = "Order liquid using the microphone";
         secondaryPanel.GetComponentInChildren<Text>().text = "use 'Hand Trigger' to grab and 'Index Trigger' to speak";
         secondaryPanel.SetActive(true);
-
     }
 
     public async void OnFullVoiceTranscription(string query)
@@ -46,9 +45,6 @@ public class GameManager : MonoBehaviour
         switch (State)
         {
             case GameState.ORDER_LIQUID:
-                primaryPanel.GetComponentInChildren<Text>().text = "Processing ...";
-                secondaryPanel.SetActive(false);
-                secondaryPanel.GetComponentInChildren<Text>().text = "";
                 await LabAI.OrderLiquid(query);
                 break;
             case GameState.SUBMIT_ANSWER:
