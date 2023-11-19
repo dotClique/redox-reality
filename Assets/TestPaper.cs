@@ -64,6 +64,7 @@ public class TestPaper : MonoBehaviour
             Debug.Log($"Liquid has ph {liquid.pH}");
             Debug.Log($"That would be the color {pHToColor(liquid.pH)}");
             _renderer.material.SetColor("_Color", pHToColor(liquid.pH));
+            GameManager.Instance.SetSecondaryPanelText("use the microphone to submit your pH guess");
         }
     }
 }

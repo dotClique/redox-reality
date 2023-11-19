@@ -13,18 +13,6 @@ public class LabAI : MonoBehaviour
 {
     private OpenAIService _openAIService;
 
-    // [SerializeField] private Text queryText;
-
-    // [SerializeField] private Text phText;
-
-    // [SerializeField] private Text colorText;
-
-    // [SerializeField] private Text viscosityText;
-
-    // [SerializeField] private Text answerText;
-    //
-    // [SerializeField] private Text correctAnswerText;
-
     [SerializeField] private GameObject liquidBeakerToSpawn;
 
     [SerializeField] private GameObject liquidBeakerSpawnPoint;
@@ -178,7 +166,8 @@ public class LabAI : MonoBehaviour
             // RequestViscosity(query)
         );
         
-        GameManager.Instance.SetSecondaryPanelText("");
+
+        GameManager.Instance.SetSecondaryPanelText("use the test paper and cheat sheet to find pH value");
         
         Debug.Log($"Result: {result[0]},{result[1]}");
         

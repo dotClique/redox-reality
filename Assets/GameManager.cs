@@ -1,7 +1,5 @@
 using System;
-using Unity.Tutorials.Core.Editor;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -69,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void SetSecondaryPanelText(string text)
     {
-        secondaryPanel.SetActive(!text.IsNullOrEmpty());
+        secondaryPanel.SetActive(!string.IsNullOrEmpty(text));
         secondaryPanel.GetComponentInChildren<Text>().text = text;
     }
 
