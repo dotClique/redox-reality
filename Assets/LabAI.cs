@@ -76,6 +76,7 @@ public class LabAI : MonoBehaviour
 
     private async Task<string> RequestColor(string liquid)
     {
+        Debug.Log($"Requesting color value for {liquid}");
         var completionResult = await _openAIService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
             Messages = new List<ChatMessage>
@@ -175,6 +176,8 @@ public class LabAI : MonoBehaviour
             RequestColor(query)
             // RequestViscosity(query)
         );
+        
+        Debug.Log($"Result: {result[0]},{result[1]}");
         
         // phText.text = $"pH: {result[0] ?? "[ERROR]"}";
 
