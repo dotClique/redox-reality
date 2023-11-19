@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.meta.xr.sdk.voice": {
+      "version": "59.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.srcnalt.openai-unity": {
       "version": "https://github.com/srcnalt/OpenAI-Unity.git",
       "depth": 0,
@@ -233,7 +240,7 @@
     },
     "com.unity.xr.oculus": {
       "version": "4.1.1",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.management": "4.4.0"
