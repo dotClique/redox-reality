@@ -7660,9 +7660,9 @@ MonoBehaviour:
     m_ActionName: VoiceActivation/TriggerPress
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1165668138}
+      - m_Target: {fileID: 1165668140}
         m_TargetAssemblyTypeName: DebugLogCanvas, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ToggleCanvas
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
