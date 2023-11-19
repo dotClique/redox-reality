@@ -1,0 +1,19 @@
+﻿fileFormatVersion: 2
+guid: 5ce915454f6441089c0cc0ff88d57e00
+MonoImporter:
+  labels: [ "oculus_interaction_deprecated" ]
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Lib/Wit.ai/Scripts/Runtime/Data/Intents/WitIntent.cs
+  uploadId: 618200

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 79647fe399cbd69458a2728d01b2f739
+DefaultImporter:
+  labels: [ "oculus_interaction_deprecated" ]
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Lib/Wit.ai/Features/TTS/Samples/Scenes/TTSSample.unity
+  uploadId: 618200

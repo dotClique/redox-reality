@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 7bd8bce5429841443a757f40b7da2407
+MonoImporter:
+  labels: [ "oculus_interaction_deprecated" ]
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Lib/Wit.ai/Scripts/Runtime/Lib/MicBase.cs
+  uploadId: 618200

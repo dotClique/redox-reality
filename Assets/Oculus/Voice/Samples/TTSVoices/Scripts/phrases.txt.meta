@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7bc5942879ad5394b88ffcc2db2f52f3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Samples/TTSVoices/Scripts/phrases.txt
+  uploadId: 618200

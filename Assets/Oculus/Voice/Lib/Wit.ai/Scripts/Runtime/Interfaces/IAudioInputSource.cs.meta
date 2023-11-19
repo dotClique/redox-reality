@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 81c62281766f8244abee4cbc076cc41c
+MonoImporter:
+  labels: [ "oculus_interaction_deprecated" ]
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Lib/Wit.ai/Scripts/Runtime/Interfaces/IAudioInputSource.cs
+  uploadId: 618200

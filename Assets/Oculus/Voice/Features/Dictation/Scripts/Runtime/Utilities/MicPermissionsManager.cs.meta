@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 080297442637404fbb0aeb74058cb4e6
+MonoImporter:
+  labels: [ "oculus_interaction_deprecated" ]
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 82022
+  packageName: Oculus Integration
+  packageVersion: 57.0
+  assetPath: Assets/Oculus/Voice/Features/Dictation/Scripts/Runtime/Utilities/MicPermissionsManager.cs
+  uploadId: 618200

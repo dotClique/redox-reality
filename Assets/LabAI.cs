@@ -164,10 +164,10 @@ public class LabAI : MonoBehaviour
     public async void OrderLiquid(string query)
     {
         Debug.Log($"Requesting liquid response from LabAI with query: {query}");
-        queryText.text = query;
-        phText.text = "...";
-        colorText.text = "...";
-        colorText.color = Color.white;
+        // queryText.text = query;
+        // phText.text = "...";
+        // colorText.text = "...";
+        // colorText.color = Color.white;
         // viscosityText.text = "...";
 
         var result = await Task.WhenAll(
@@ -176,13 +176,13 @@ public class LabAI : MonoBehaviour
             // RequestViscosity(query)
         );
         
-        phText.text = $"pH: {result[0] ?? "[ERROR]"}";
+        // phText.text = $"pH: {result[0] ?? "[ERROR]"}";
 
         Color color;
         ColorUtility.TryParseHtmlString(result[1], out color);
         // color = color ?? Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        colorText.text = $"color: #{ColorUtility.ToHtmlStringRGB(color)}";
-        colorText.color = color;
+        // colorText.text = $"color: #{ColorUtility.ToHtmlStringRGB(color)}";
+        // colorText.color = color;
         
         // viscosityText.text = result[2] ?? "[ERROR]";
         

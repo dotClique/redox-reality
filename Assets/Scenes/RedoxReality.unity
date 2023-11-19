@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.043560747, g: 0.04494225, b: 0.05917211, a: 1}
+  m_IndirectSpecularColor: {r: 0.04365709, g: 0.044818856, b: 0.05955075, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5256,16 +5256,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1030400273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62aa6316ffe5a1644a29ea1480cb5b65, type: 3}
+  m_Script: {fileID: 11500000, guid: 0124592df8d88be4487567bced4a2d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  queryText: {fileID: 781775146}
-  phText: {fileID: 628174850}
-  colorText: {fileID: 1178078472}
+  queryText: {fileID: 0}
+  phText: {fileID: 0}
+  colorText: {fileID: 0}
   answerText: {fileID: 911761973}
   correctAnswerText: {fileID: 462143759}
-  liquidBeakerToSpawn: {fileID: 9009510195831712475, guid: 536c1cde60402fd41a5f3f2b89d969a8,
-    type: 3}
+  liquidBeakerToSpawn: {fileID: 1738847804}
   liquidBeakerSpawnPoint: {fileID: 738865170}
 --- !u!4 &1030400275
 Transform:
@@ -5669,8 +5668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076dafd9f4d50fa4bb0969e3fe85143c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLines: 20
-  debugLogText: {fileID: 147071664}
 --- !u!114 &1165668141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6957,9 +6954,9 @@ MonoBehaviour:
     m_ActionName: VoiceActivation/TriggerPress
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1165668140}
+      - m_Target: {fileID: 1165668138}
         m_TargetAssemblyTypeName: DebugLogCanvas, Assembly-CSharp
-        m_MethodName: ToggleCanvas
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7380,7 +7377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1342527293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c3cc9a72a156048a8f054114441139, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f347e5616464ab49b08e933af02de35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wit: {fileID: 0}
@@ -7866,8 +7863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076dafd9f4d50fa4bb0969e3fe85143c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLines: 15
-  debugLogText: {fileID: 1129179434}
 --- !u!1 &1464467342
 GameObject:
   m_ObjectHideFlags: 0
@@ -8997,6 +8992,12 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2,
     type: 3}
   m_PrefabInstance: {fileID: 1731298970}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1738847804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9009510195831712475, guid: 536c1cde60402fd41a5f3f2b89d969a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1111947912015254648}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1740969850
 GameObject:
